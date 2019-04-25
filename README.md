@@ -1,2 +1,2 @@
-# farmos
-Medieninformatik II
+# Farmos
+Medieninformatik 2 - Project
