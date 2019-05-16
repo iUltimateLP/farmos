@@ -22,14 +22,22 @@
 
         <!-- Site Title -->
         <title>Farmos</title>
+
+        <!-- Use the main css file -->
+        <link href="assets/css/main.css" rel="stylesheet">
     </head>
 
     <body>
-        <!-- SCRIPTS -->
+        <!-- A fullscreen overlay adding a vignette effect -->
+        <div class="vignette"> </div>
+
         <!-- Phaser Distribution Build -->
         <script src="lib/phaser/dist/phaser.js"></script>
 
-
+        <!-- Game sources -->
+        <script src="assets/js/core/constants.js"></script>
+        <script src="assets/js/core/character.js"></script>
+        <script src="assets/js/core/map.js"></script>
         <script src="game.js"></script>
     </body>
 </html>
