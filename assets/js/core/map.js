@@ -74,6 +74,10 @@ class Map {
             // Store the new layer in our array
             this.mapLayers.push(newStaticLayer);
         }, this); // This forEach has `this` as the context so we can access our Map object from inside the loop
+
+        // Set the main cameras' bounds and start following the player
+        scene.cameras.main.setBounds(0, 0, this.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, this.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
+        scene.cameras.main.startFollow(window.game.playableCharacter.player, true, 0.09, 0.09);
     }
 
     update(scene, time, delta) {

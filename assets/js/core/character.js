@@ -45,7 +45,7 @@ class PlayableCharacter {
         this.player.depth = CONSTANTS.LAYERS.PLAYER;
 
         // The player should collide with world bounds
-        this.player.setCollideWorldBounds(true);
+        //this.player.setCollideWorldBounds(true);
 
         // Setup movement animations
         scene.anims.create({

@@ -16,8 +16,8 @@
 // Create a new Phaser game instance (it is also automatically stored in window.phaser)
 var phaser = new Phaser.Game({
     type: Phaser.AUTO, // Automatically decides whether to use WebGL or Canvas API
-    width: window.innerWidth,
-    height: window.innerHeight,
+    //width: window.innerWidth,
+    //height: window.innerHeight,
     scale: {
         mode: Phaser.Scale.ScaleModes.RESIZE // Automatically resize the game to fit the available space disregarding aspect ratio
     },
