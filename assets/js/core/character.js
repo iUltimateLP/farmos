@@ -89,8 +89,28 @@ class PlayableCharacter {
         this.player.anims.stop();
         this.player.setFrame(0);
 
+        // Set the Light2D render pipeline to support light effects
+        this.player.setPipeline("Light2D");
+
+        // Now here comes a big workaround: because Phaser won't correctly light sprites which don't
+        // have normal map information, we need one. Since our game is pixel-based and 2D, we don't
+        // have any detailed normal information, so just use this flat dummy normal map containing
+        // no height information at all. Took me three hours to figure out.
+        var dummyNormal = new Image();
+        dummyNormal.src = "assets/img/misc/dummy_n.png";
+
+        // Loading files is async, so bind a callback for it
+        dummyNormal.addEventListener("load", this.onNormalLoaded.bind(this));
+
         // Apply the new key mappings      
         this.cursors = scene.input.keyboard.addKeys(CONSTANTS.KEYS);
+    }
+
+    // Called when the dummy normal map loaded
+    onNormalLoaded(event) {
+        // The HTMLImageElement which just loaded the data is stored in event.path[0]
+        // Phaser.Textures.Texture.setDataSource is used to add (an array) of additional data to a texture.
+        this.player.texture.setDataSource([event.path[0]]);
     }
 
     // Calculates a two dimensional vector containing the direction the player moves in

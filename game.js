@@ -15,9 +15,7 @@
 
 // Create a new Phaser game instance (it is also automatically stored in window.phaser)
 var phaser = new Phaser.Game({
-    type: Phaser.AUTO, // Automatically decides whether to use WebGL or Canvas API
-    //width: window.innerWidth,
-    //height: window.innerHeight,
+    type: Phaser.WEBGL, // We need WebGL because of the lighting we use
     scale: {
         mode: Phaser.Scale.ScaleModes.RESIZE // Automatically resize the game to fit the available space disregarding aspect ratio
     },
@@ -50,10 +48,16 @@ window.game.playableCharacter = new PlayableCharacter();
 // Instantiate a new map
 window.game.map = new Map();
 
+// A new time manager
+window.game.time = new TimeManager();
+
 // Called when the game preloads assets for later use
 function preload() {
     // Emit the preload event using "this" as a scene parameter
     window.game.events.emit("preload", this);
+
+    // If we ever need the scene out of context, we can get it with window.game.scene
+    window.game.scene = this;
 }
 
 // Called when the game creates this object and places it on screen

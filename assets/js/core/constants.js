@@ -32,5 +32,16 @@ const CONSTANTS = {
         down: Phaser.Input.Keyboard.KeyCodes.S,
         left: Phaser.Input.Keyboard.KeyCodes.A,
         right: Phaser.Input.Keyboard.KeyCodes.D
+    },
+
+    // Simulation base speed
+    SIMULATION_SPEED_FACTOR: 100,
+
+    // Simulation speed factors
+    SIMULATION_SPEED: {
+        NORMAL: 1,
+        FAST: 2,
+        FASTER: 2.5,
+        VERYFAST: 3
     }
 };
