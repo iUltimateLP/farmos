@@ -44,7 +44,7 @@ class Map {
         console.log("[Map] Creating");
 
         // Add the dummy texture to the scene using a tiled sprite and enable lighting
-        scene.add.tileSprite(256, 256, 800, 600, "dummy").setPipeline("Light2D");
+        this.lightingDummy = scene.add.tileSprite(256, 256, 800, 600, "dummy").setPipeline("Light2D");
 
         // Create a tilemap using the map imported from Tiled
         this.tileMap = scene.make.tilemap({
@@ -91,9 +91,12 @@ class Map {
         // Set the main cameras' bounds and start following the player
         scene.cameras.main.setBounds(0, 0, this.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, this.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
         scene.cameras.main.startFollow(window.game.playableCharacter.player, true, 0.09, 0.09);
-        
-        // Set up the lighting: Phaser needs at least one light in the scene, so create one
-        this.light = scene.lights.addLight(0, 0, 200, 0xfff7a3, 1);
+ 
+        // Phaser needs at least one light in the scene for light to work
+        // Also this light is needed otherwise the player won't be visibe when moving out of the lights
+        // scene bounds. Thats why we update this light's position to follow the player. The light itself
+        // is invisible.
+        this.dummyLight = scene.lights.addLight(0, 0, 0, 0xffffff, 0);
 
         // Enable the whole light system
         scene.lights.enable();
@@ -114,7 +117,12 @@ class Map {
     // Called when the game wants to update this object (every tick)
     update(scene, time, delta) {
         //console.log(scene.lights.culledLights);
-        this.light.x = window.game.playableCharacter.player.x;
-        this.light.y = window.game.playableCharacter.player.y;
+        this.dummyLight.x = window.game.playableCharacter.player.x;
+        this.dummyLight.y = window.game.playableCharacter.player.y;
+    }
+
+    // Returns all layers of the map
+    getLayers() {
+        return this.mapLayers;
     }
 }

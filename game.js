@@ -23,7 +23,7 @@ var phaser = new Phaser.Game({
         // We are using arcade physics, but without gravity because this is a top-down game
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: {x: 0, y: 0}
         }
     },
@@ -36,20 +36,14 @@ var phaser = new Phaser.Game({
     antialias: false // Pixel perfect rendering
 });
 
-// Create a new global game object. We use this to store various global objects in it
+// Create a new global game object and create all game subsystems
 window.game = {};
-
-// Create a new Phaser event emitter for registering to events like preload, create and update
 window.game.events = new Phaser.Events.EventEmitter();;
-
-// Instantiate a new playable character
 window.game.playableCharacter = new PlayableCharacter();
-
-// Instantiate a new map
 window.game.map = new Map();
-
-// A new time manager
 window.game.time = new TimeManager();
+window.game.ui = new UIManager();
+window.game.postprocess = new PostProcess();
 
 // Called when the game preloads assets for later use
 function preload() {
