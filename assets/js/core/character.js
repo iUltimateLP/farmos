@@ -36,13 +36,13 @@ class PlayableCharacter {
     // Called when the game creates this object and places it on screen
     create(scene) {
         // Add a new physics sprite to the scene
-        this.player = scene.physics.add.sprite(100, 450, "thanos");
+        this.playerSprite = scene.physics.add.sprite(100, 450, "thanos");
 
         // Scale the player to the game scale
-        this.player.setScale(CONSTANTS.GAME_SCALE);
+        this.playerSprite.setScale(CONSTANTS.GAME_SCALE);
         
         // Set the player's depth (z-index) to it's layer
-        this.player.depth = CONSTANTS.LAYERS.PLAYER;
+        this.playerSprite.depth = CONSTANTS.LAYERS.PLAYER;
 
         // The player should collide with world bounds
         //this.player.setCollideWorldBounds(true);
@@ -85,12 +85,12 @@ class PlayableCharacter {
         });
     
         // At startup, play and stop the front animation and set to the first frame
-        this.player.anims.play("front");
-        this.player.anims.stop();
-        this.player.setFrame(0);
+        this.playerSprite.anims.play("front");
+        this.playerSprite.anims.stop();
+        this.playerSprite.setFrame(0);
 
         // Set the Light2D render pipeline to support light effects
-        this.player.setPipeline("Light2D");
+        this.playerSprite.setPipeline("Light2D");
 
         // Now here comes a big workaround: because Phaser won't correctly light sprites which don't
         // have normal map information, we need one. Since our game is pixel-based and 2D, we don't
@@ -110,7 +110,7 @@ class PlayableCharacter {
     onNormalLoaded(event) {
         // The HTMLImageElement which just loaded the data is stored in event.path[0]
         // Phaser.Textures.Texture.setDataSource is used to add (an array) of additional data to a texture.
-        this.player.texture.setDataSource([event.path[0]]);
+        this.playerSprite.texture.setDataSource([event.path[0]]);
     }
 
     // Calculates a two dimensional vector containing the direction the player moves in
@@ -138,20 +138,31 @@ class PlayableCharacter {
         var mvec = this.getMovementVector();
 
         // Set the player's velocity
-        this.player.setVelocity(mvec.x*CONSTANTS.MOVEMENT_SPEED, mvec.y*CONSTANTS.MOVEMENT_SPEED);
+        this.playerSprite.setVelocity(mvec.x*CONSTANTS.MOVEMENT_SPEED, mvec.y*CONSTANTS.MOVEMENT_SPEED);
 
         // Animation State Machine
         if (this.cursors.left.isDown)
-            this.player.anims.play('left', true);
+            this.playerSprite.anims.play('left', true);
         else if (this.cursors.right.isDown)
-            this.player.anims.play('right', true);
+            this.playerSprite.anims.play('right', true);
         else if (this.cursors.down.isDown)
-            this.player.anims.play('front', true);
+            this.playerSprite.anims.play('front', true);
         else if (this.cursors.up.isDown)
-            this.player.anims.play('back', true);
+            this.playerSprite.anims.play('back', true);
         else {
-            this.player.anims.stop();
-            this.player.setFrame(0);
+            this.playerSprite.anims.stop();
+            this.playerSprite.setFrame(0);
         }
-    }    
+    }
+
+    // Sets the position of the player
+    setPosition(x, y) {
+        this.playerSprite.x = x;
+        this.playerSprite.y = y;
+    }
+
+    // Returns the players position
+    getPosition() {
+        return {x: this.playerSprite.x, y: this.playerSprite.y };
+    }
 }

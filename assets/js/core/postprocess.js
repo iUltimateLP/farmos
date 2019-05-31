@@ -216,11 +216,11 @@ class PostProcess {
 		// Camera 2 is the UI camera, so it should ignore everything else
 		uiCam.ignore(window.game.map.getLayers());
 		uiCam.ignore(window.game.map.lightingDummy);
-		uiCam.ignore(window.game.playableCharacter.player);
+		uiCam.ignore(window.game.player.playerSprite);
 
 		// Set the UI cameras' bounds and start following the player just as the main camera does
 		uiCam.setBounds(0, 0, window.game.map.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, window.game.map.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
-		uiCam.startFollow(window.game.playableCharacter.player, true, 0.09, 0.09);
+		uiCam.startFollow(window.game.player.playerSprite, true, 0.09, 0.09);
     }
 
     // Called when the game wants to update this object (every tick)

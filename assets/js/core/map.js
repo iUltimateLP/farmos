@@ -82,7 +82,7 @@ class Map {
             });
 
             // Add the layer as a collider to the player so they'll collide
-            scene.physics.add.collider(window.game.playableCharacter.player, newStaticLayer);
+            scene.physics.add.collider(window.game.player.playerSprite, newStaticLayer);
 
             // Store the new layer in our array
             this.mapLayers.push(newStaticLayer);
@@ -90,7 +90,7 @@ class Map {
 
         // Set the main cameras' bounds and start following the player
         scene.cameras.main.setBounds(0, 0, this.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, this.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
-        scene.cameras.main.startFollow(window.game.playableCharacter.player, true, 0.09, 0.09);
+        scene.cameras.main.startFollow(window.game.player.playerSprite, true, 0.09, 0.09);
  
         // Phaser needs at least one light in the scene for light to work
         // Also this light is needed otherwise the player won't be visibe when moving out of the lights
@@ -104,8 +104,7 @@ class Map {
 
         // Set the players position to be at the spawnpoint
         var spawnpoint = helpers.findObjectInMap("spawnpoint");
-        window.game.playableCharacter.player.x = spawnpoint.x;
-        window.game.playableCharacter.player.y = spawnpoint.y;
+        window.game.player.setPosition(spawnpoint.x, spawnpoint.y);
 
         // Add some test lights
         //scene.lights.addLight(100, 100, 100).setColor(0xff0000).setIntensity(20.0);
@@ -117,8 +116,8 @@ class Map {
     // Called when the game wants to update this object (every tick)
     update(scene, time, delta) {
         //console.log(scene.lights.culledLights);
-        this.dummyLight.x = window.game.playableCharacter.player.x;
-        this.dummyLight.y = window.game.playableCharacter.player.y;
+        this.dummyLight.x = window.game.player.playerSprite.x;
+        this.dummyLight.y = window.game.player.playerSprite.y;
     }
 
     // Returns all layers of the map

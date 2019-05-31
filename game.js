@@ -39,7 +39,7 @@ var phaser = new Phaser.Game({
 // Create a new global game object and create all game subsystems
 window.game = {};
 window.game.events = new Phaser.Events.EventEmitter();;
-window.game.playableCharacter = new PlayableCharacter();
+window.game.player = new PlayableCharacter();
 window.game.map = new Map();
 window.game.time = new TimeManager();
 window.game.ui = new UIManager();
