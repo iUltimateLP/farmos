@@ -104,7 +104,7 @@ class Map {
 
         // Set the players position to be at the spawnpoint
         var spawnpoint = helpers.findObjectInMap("spawnpoint");
-        window.game.player.setPosition(spawnpoint.x, spawnpoint.y);
+        window.game.player.setPosition(spawnpoint.x * CONSTANTS.GAME_SCALE, spawnpoint.y * CONSTANTS.GAME_SCALE);
 
         // Add some test lights
         //scene.lights.addLight(100, 100, 100).setColor(0xff0000).setIntensity(20.0);
