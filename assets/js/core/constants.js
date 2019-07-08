@@ -50,7 +50,7 @@ const CONSTANTS = {
     },
 
     // Enable music
-    MUSIC_ENABLED: false,
+    MUSIC_ENABLED: true,
 
     // Enable ambience sfx
     AMBIENCE_ENABLED: true
