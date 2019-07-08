@@ -1,0 +1,75 @@
+/*
+     ______      _____  __  __  ____   _____ 
+    |  ____/\   |  __ \|  \/  |/ __ \ / ____|
+    | |__ /  \  | |__) | \  / | |  | | (___  
+    |  __/ /\ \ |  _  /| |\/| | |  | |\___ \ 
+    | | / ____ \| | \ \| |  | | |__| |____) |
+    |_|/_/    \_\_|  \_\_|  |_|\____/|_____/ 
+                                            
+    David Peter Lothar Bollmann - 5042634
+    Jonathan Verbeek - 5058288
+
+    File: anims.css
+    Purpose: Implements some CSS animations used on the game UI.
+*/
+
+/* Bounce (falls down from the top of the screen) */
+@keyframes bounce {
+    0% {
+        opacity: 0;
+        top: 0%;
+    }
+    70% {
+        opacity: 1;
+        top: 55%;
+    }
+    100% {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+.bounce-in {
+    animation-name: bounce;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+}
+
+.bounce-out {
+    animation-name: bounce;
+    animation-direction: reverse;
+    animation-fill-mode: backwards;
+    animation-duration: 0.3s;
+    animation-timing-function: linear; 
+}
+
+/* Flash (flashing using an element's scale) */
+@keyframes flash {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.flash {
+    animation-name: flash;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.flash-fast {
+    animation-name: flash;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+}

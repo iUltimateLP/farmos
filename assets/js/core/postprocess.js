@@ -201,28 +201,35 @@ class PostProcess {
 		// Now this is another cool hack, use two cameras, one for the UI, and one for the world.
 		// If we would have used one camera for both, the UI would have been flipped aswell (remember,
 		// the shader does flip the UV coords)
-		var gameCam = scene.cameras.main;
-		var uiCam = scene.cameras.add();
+		this.gameCam = scene.cameras.main;
+		this.uiCam = scene.cameras.add();
 
 		// Create the HSL Render Pipeline
 		this.hsl = scene.game.renderer.addPipeline("HSLRenderPipeline", new HSLRenderPipeline(scene.game));
-		
-		// Set the main camera to render to the HSL shader pipeline
-		gameCam.setRenderToTexture(this.hsl);
-		
+
+		this.updateCameraFilter();
+	}
+
+	// Updates the camera filters
+	updateCameraFilter() {
 		// Main camera should ignore all UI elements as we render them on a different camera
-		gameCam.ignore(window.game.ui.getAllUIElements());
-		
+		this.gameCam.ignore(window.game.ui.getAllUIElements());
+		this.gameCam.ignore(helpers.getObjectSprites());
+		this.gameCam.ignore(helpers.getFarmFieldSprites());
+
 		// Camera 2 is the UI camera, so it should ignore everything else
-		uiCam.ignore(window.game.map.getLayers());
-		uiCam.ignore(window.game.map.lightingDummy);
-		uiCam.ignore(window.game.player.playerSprite);
+		this.uiCam.ignore(window.game.map.getLayers());
+		this.uiCam.ignore(window.game.map.lightingDummy);
+		this.uiCam.ignore(window.game.map.mapSprites);
+
+		// Set the main camera to render to the HSL shader pipeline
+		this.gameCam.setRenderToTexture(this.hsl);
 
 		// Set the UI cameras' bounds and start following the player just as the main camera does
-		uiCam.setBounds(0, 0, window.game.map.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, window.game.map.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
-		uiCam.startFollow(window.game.player.playerSprite, true, 0.09, 0.09);
-    }
-
+		this.uiCam.setBounds(0, 0, window.game.map.tileMap.widthInPixels * CONSTANTS.GAME_SCALE, window.game.map.tileMap.heightInPixels * CONSTANTS.GAME_SCALE);
+		this.uiCam.startFollow(window.game.player.playerSprite, true, 0.09, 0.09);
+	}
+	
     // Called when the game wants to update this object (every tick)
     update(scene, time, delta) {
 

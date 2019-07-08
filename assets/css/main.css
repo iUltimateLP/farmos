@@ -14,6 +14,24 @@
     changes for the HTML appearance.
 */
 
+:root {
+    --button-hover-brightness: 70%;
+    --inventory-hover-brightness: 85%;
+
+    --ui-wood-color: #452a1b;
+    --ui-wood-color-light: #634433;
+    --ui-paper-color-dark: #f6d896;
+    --ui-paper-color: #fcf7be;
+    --ui-green: #4da411;
+    --ui-green-light: #6abe30;
+    --ui-green-text: #95e65c;
+}
+
+@font-face {
+    font-family: Pixeled;
+    src: url("../fonts/Pixeled.ttf");
+}
+
 body {
     margin: 0;
     overflow: hidden;
@@ -26,4 +44,37 @@ body {
     height: 100%;
     z-index: 100;
     box-shadow: inset black 0px 0px 20px 0px;
+}
+
+@keyframes introFade {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    color: white;
+    background-color: white;
+    box-shadow: inset black 0px 0px 20px 0px;
+    animation-delay: 2s;
+    animation-name: introFade;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    pointer-events: none;
+}
+
+.snow-overlay {
+    background-image: url("../img/ui/snowfall.gif");
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }

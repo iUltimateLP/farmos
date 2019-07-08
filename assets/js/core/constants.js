@@ -17,11 +17,15 @@ const CONSTANTS = {
     // Depth layer indices for elements in the game
     LAYERS: {
         TERRAIN: 1, // This is the base terrain layer, each layer of sprites gets added over this layer, so calculate that in
-        PLAYER: 10
+        OBJECTS: 25,
+        PLAYER: 30
     },
 
     // Overall game scale
-    GAME_SCALE: 2,
+    GAME_SCALE: 4,
+
+    // Scale of the player
+    PLAYER_SCALE: 2,
 
     // Velocity at which the player moves on
     MOVEMENT_SPEED: 300,
@@ -43,5 +47,11 @@ const CONSTANTS = {
         FAST: 2,
         FASTER: 2.5,
         VERYFAST: 3
-    }
+    },
+
+    // Enable music
+    MUSIC_ENABLED: false,
+
+    // Enable ambience sfx
+    AMBIENCE_ENABLED: true
 };

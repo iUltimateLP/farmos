@@ -38,12 +38,16 @@ var phaser = new Phaser.Game({
 
 // Create a new global game object and create all game subsystems
 window.game = {};
-window.game.events = new Phaser.Events.EventEmitter();;
+window.game.events = new Phaser.Events.EventEmitter();
 window.game.player = new PlayableCharacter();
 window.game.map = new Map();
 window.game.time = new TimeManager();
 window.game.ui = new UIManager();
 window.game.postprocess = new PostProcess();
+window.game.objects = [];
+window.game.farm = {};
+window.game.farm.fruitTrees = [];
+window.game.farm.farmFields = [];
 
 // Called when the game preloads assets for later use
 function preload() {

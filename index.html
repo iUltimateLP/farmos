@@ -23,13 +23,142 @@
         <!-- Site Title -->
         <title>Farmos</title>
 
+        <!-- THANOS FAVICON THANOS FAVICON -->
+        <link rel="shortcut icon" href="assets/img/misc/favicon.png">
+
         <!-- Use the main css file -->
+        <link href="assets/css/anims.css" rel="stylesheet">
+        <link href="assets/css/gameui.css" rel="stylesheet">
         <link href="assets/css/main.css" rel="stylesheet">
     </head>
 
     <body>
         <!-- A fullscreen overlay adding a vignette effect -->
         <div class="vignette"> </div>
+
+        <!-- A fullscreen overlay for the white intro effect -->
+        <div class="intro"></div>
+
+        <!-- The main container for the game's UI -->
+        <div id="game-ui" class="game-ui">
+            <!-- Overlay for snow effects -->
+            <div class="snow-overlay" id="snow-overlay" style="opacity: 0;"></div>
+
+            <!-- Inventory -->
+            <div class="inventory">
+                <!-- Decoration -->
+                <div class="inventory-overlay"></div>
+
+                <!-- Slots -->
+                <div class="inv-img cap-start"></div>
+                <div id="inv-hotbar-1" class="inv-img slot start" tooltip></div>
+                <div id="inv-hotbar-2" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-3" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-4" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-5" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-6" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-7" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-8" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-9" class="inv-img slot" tooltip></div>
+                <div id="inv-hotbar-10" class="inv-img slot end" tooltip></div>
+                <div class="inv-img cap-end"></div>
+            </div>
+
+            <!-- TimeDate display -->
+            <div class="time-date">
+                <!-- Analog Clock -->
+                <div class="clock">
+                    <!-- Hour Pointer -->
+                    <div id="clock-hour" class="hour" style="transform: rotate(0deg);"></div>
+
+                    <!-- Minute Pointer -->
+                    <div id="clock-minute" class="minute" style="transform: rotate(0deg);"></div>
+                </div>
+                <!-- Date -->
+                <div class="date">
+                    <div class="date-text">
+                        <p id="clock-date-label"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed Control -->
+            <div class="speed-control">
+                <!-- 1 10 100 -->
+                <div id="speed-1" class="speed-1" onmouseover="playUIHover();" onclick="playUIClick(); window.game.time.setSimulationSpeed(1);"></div>
+                <div id="speed-2" class="speed-2" onmouseover="playUIHover();" onclick="playUIClick(); window.game.time.setSimulationSpeed(10);"></div>
+                <div id="speed-3" class="speed-3" onmouseover="playUIHover();" onclick="playUIClick(); window.game.time.setSimulationSpeed(100);"></div>
+            </div>
+
+            <!-- Chest Inventory Window -->
+            <div id="inv-window" class="window">
+                <div class="window-title">
+                    <p id="inv-window-title"></p>
+                    <div id="inv-window-close-btn" class="window-close"></div>
+                </div>
+                <div class="window-content">
+                    <!-- Inventory Grid containing 18 slots -->
+                    <div class="inv-grid">
+                        <div id="inv-grid-1" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-2" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-3" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-4" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-5" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-6" class="inv-grid-slot" tooltip></div>
+
+                        <div id="inv-grid-7" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-8" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-9" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-10" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-11" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-12" class="inv-grid-slot" tooltip></div>
+
+                        <div id="inv-grid-13" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-14" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-15" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-16" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-17" class="inv-grid-slot" tooltip></div>
+                        <div id="inv-grid-18" class="inv-grid-slot" tooltip></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop Window -->
+            <div id="shop-window" class="window big">
+                <div class="window-title">
+                    <p>Shop</p>
+                    <div class="window-close" onmouseover="playUIHover();" onclick="playUIClick(); bounceOut(document.getElementById('shop-window'));"></div>
+                </div>
+                <div class="window-content">
+                    <!-- Gets populated by shopui.js -->
+                    <div id="shop-window-content" class="list-grid"></div>
+                </div>
+            </div>
+
+            <!-- Skills Window -->
+            <div id="skills-window" class="window big">
+                <div class="window-title">
+                    <p>Unlock</p>
+                    <div class="window-close" onmouseover="playUIHover();" onclick="playUIClick(); bounceOut(document.getElementById('skills-window'));"></div>
+                </div>
+                <div class="window-content">
+                    <!-- Gets populated by skillui.js -->
+                    <div class="skill-tree" id="skill-tree"></div>
+                </div>
+            </div>
+
+            <!-- Cash / XP Display -->
+            <div class="cash-display" onmouseover="playUIHover();" onclick="playUIClick(); bounceIn(document.getElementById('shop-window'));">
+                <p id="cash-label"></p>
+            </div>
+            <div class="xp-display" onmouseover="playUIHover();" onclick="playUIClick(); bounceIn(document.getElementById('skills-window'));">
+                <div id="xp-bar" class="xp-bar"></div>
+                <p id="xp-label"></p>
+            </div>
+
+            <!-- Tooltip (this gets positioned and content-changed by ui.js) -->
+            <div id="tooltip" class="tooltip"></div>
+        </div>
 
         <!-- Phaser Distribution Build -->
         <script src="lib/phaser/dist/phaser.js"></script>
@@ -38,11 +167,21 @@
         <script src="assets/js/core/constants.js"></script>
         <script src="assets/js/core/helpers.js"></script>
         <script src="assets/js/core/inventory.js"></script>
-        <script src="assets/js/core/ui.js"></script>
+        <script src="assets/js/game/items.js"></script>
+        <script src="assets/js/game/ui.js"></script>
+        <script src="assets/js/game/inventoryui.js"></script>
+        <script src="assets/js/game/shopui.js"></script>
+        <script src="assets/js/game/skillui.js"></script>
         <script src="assets/js/core/postprocess.js"></script>
         <script src="assets/js/core/character.js"></script>
         <script src="assets/js/core/time.js"></script>
+        <script src="assets/js/core/interactable.js"></script>
         <script src="assets/js/core/map.js"></script>
+        <script src="assets/js/game/chest.js"></script>
+        <script src="assets/js/game/market.js"></script>
+        <script src="assets/js/game/torch.js"></script>
+        <script src="assets/js/game/farmfield.js"></script>
+        <script src="assets/js/game/fruittree.js"></script>
         <script src="game.js"></script>
     </body>
 </html>
